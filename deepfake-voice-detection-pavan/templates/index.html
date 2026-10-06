@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deepfake Voice Detection - Pavan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="panel">
+        <p class="eyebrow">Pavan Project</p>
+        <h1>Deepfake Voice Detection</h1>
+        <form method="post" enctype="multipart/form-data">
+          <input type="file" name="audio" accept=".wav,.mp3,.ogg" required>
+          <button type="submit">Analyze Voice</button>
+        </form>
+
+        {% if error %}
+          <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if prediction %}
+          <div class="result">
+            <strong>{{ prediction.result }}</strong>
+            <span>Confidence: {{ prediction.confidence }}%</span>
+          </div>
+        {% endif %}
+      </section>
+
+      <section class="history">
+        <h2>Recent Checks</h2>
+        {% for item in history %}
+          <article>
+            <strong>{{ item[0] }}</strong>
+            <span>{{ item[1] }} - {{ item[2] }}%</span>
+            <small>{{ item[3] }}</small>
+          </article>
+        {% else %}
+          <p>No checks yet.</p>
+        {% endfor %}
+      </section>
+    </main>
+  </body>
+</html>
